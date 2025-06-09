@@ -11,22 +11,25 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
   
   // Check if the user is authenticated
   const token = useAppSelector((state) => state.auth.token);
-
-  // Paths that should be accessible without authentication
-  const isLoginPage = pathname === "/login";
-  const isLandingPage = pathname === "/";
+  
+  // Public pages that don't require authentication
+  const isPublicPage = pathname === "/" || pathname === "/login";
 
   useEffect(() => {
-    // If the user is not authenticated and is not on the login page, redirect to login
-    if (!token && !isLoginPage  && !isLandingPage) {
+    // If the user is not authenticated and is not on a public page, redirect to login
+    if (!token && !isPublicPage) {
       router.push("/login");
     }
-  }, [token, isLoginPage, isLandingPage, router]);
+  }, [token, isPublicPage, router]);
 
   return (
     <>
       {/* Only use DashboardWrapper for authenticated pages */}
-            {isLoginPage || isLandingPage ? (children) : (<DashboardWrapper>{children}</DashboardWrapper>)}
+      {isPublicPage ? (
+        children
+      ) : (
+        <DashboardWrapper>{children}</DashboardWrapper>
+      )}
     </>
   );
 }

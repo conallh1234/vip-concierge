@@ -24,7 +24,7 @@ export default function LoginForm() {
         // Use login mutation which performs POST request to endpoint.
         //const userData = await login({email, password}).unwrap();
         //console.log('Login Successful: ', response)
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -6,8 +6,8 @@ import ClientWrapper from "./clientWrapper";
 
 
 export const metadata: Metadata = {
-  title: "StudentHub",
-  description: "Next.js Student Management System",
+  title: "VIPConcierge",
+  description: "VIP Concierge Business Management WebApp",
 };
 
 export default function RootLayout({
