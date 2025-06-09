@@ -41,3 +41,31 @@ export const login = async (req: Request, res: Response) => {
     return;
   }
 };
+
+export const register = async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      res.status(409).json({ error: 'User already exists' });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    const { password: _pw, ...userWithoutPassword } = user;
+    res.status(201).json(userWithoutPassword);
+  } catch (error) {
+    console.error('Error during registration:', error);
+    res.status(500).json({ error: 'Something went wrong' });
+    return;
+  }
+};

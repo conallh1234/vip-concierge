@@ -9,8 +9,8 @@ const helmet_1 = __importDefault(require("helmet"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const authRoutes_1 = __importDefault(require("./routes/authRoutes")); // to be created
-const bookingRoutes_1 = __importDefault(require("./routes/bookingRoutes")); // to be created
+//import authRoutes from "./routes/authRoutes";  // to be created
+//import bookingRoutes from "./routes/bookingRoutes"; // to be created
 console.log("👀 Index.ts starting up...");
 // Load env variables
 dotenv_1.default.config();
@@ -25,8 +25,8 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)({ origin: "http://localhost:3000", credentials: true }));
 // Routes
-app.use("/api", authRoutes_1.default);
-app.use("/api/bookings", bookingRoutes_1.default);
+//app.use("/api", authRoutes);
+//app.use("/api/bookings", bookingRoutes);
 // Server
 const port = Number(process.env.PORT) || 8000;
 console.log("🚦 About to call app.listen...");
