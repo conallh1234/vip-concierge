@@ -25,12 +25,14 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             where: { email },
         });
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            res.status(404).json({ error: 'User not found' });
+            return;
         }
         // Check if the password is valid
         const isPasswordValid = yield bcryptjs_1.default.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            res.status(401).json({ error: 'Invalid credentials' });
+            return;
         }
         // Generate a JWT token
         const token = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' } // Token expires in 1 hour
@@ -41,6 +43,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         console.error('Error during login:', error); // Log the error details
         res.status(500).json({ error: 'Something went wrong' });
+        return;
     }
 });
 exports.login = login;

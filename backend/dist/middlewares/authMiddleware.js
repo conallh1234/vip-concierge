@@ -19,7 +19,8 @@ const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     var _a;
     const token = (_a = req.header('Authorization')) === null || _a === void 0 ? void 0 : _a.replace('Bearer ', '');
     if (!token) {
-        return res.status(401).send('Access denied. No token provided.');
+        res.status(401).send('Access denied. No token provided.');
+        return;
     }
     try {
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
@@ -27,7 +28,8 @@ const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, f
             where: { id: decoded.userId }
         });
         if (!user) {
-            return res.status(404).send('User not found.');
+            res.status(404).send('User not found.');
+            return;
         }
         req.user = {
             id: user.id,
@@ -37,7 +39,8 @@ const authenticateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         next();
     }
     catch (err) {
-        return res.status(400).send('Invalid token.');
+        res.status(400).send('Invalid token.');
+        return;
     }
 });
 exports.default = authenticateUser;

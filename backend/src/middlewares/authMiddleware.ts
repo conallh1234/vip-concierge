@@ -16,7 +16,8 @@ const authenticateUser = async (req: AuthRequest, res: Response, next: NextFunct
   const token = req.header('Authorization')?.replace('Bearer ', '');
 
   if (!token) {
-    return res.status(401).send('Access denied. No token provided.');
+    res.status(401).send('Access denied. No token provided.');
+    return;
   }
 
   try {
@@ -27,7 +28,8 @@ const authenticateUser = async (req: AuthRequest, res: Response, next: NextFunct
     });
 
     if (!user) {
-      return res.status(404).send('User not found.');
+      res.status(404).send('User not found.');
+      return;
     }
 
     req.user = {
@@ -38,7 +40,8 @@ const authenticateUser = async (req: AuthRequest, res: Response, next: NextFunct
 
     next();
   } catch (err) {
-    return res.status(400).send('Invalid token.');
+    res.status(400).send('Invalid token.');
+    return;
   }
 };
 

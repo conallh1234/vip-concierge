@@ -1,9 +1,11 @@
+// routes/authRoutes.ts
 import express from 'express';
-import { login, register } from '../controllers/authController';
+import { login } from '../controllers/authController';
 
 const router = express.Router();
 
-router.post('/register', register);
+console.log('typeof login:', typeof login); // ⬅️ Should log "function"
+
 router.post('/login', login);
 
 export default router;

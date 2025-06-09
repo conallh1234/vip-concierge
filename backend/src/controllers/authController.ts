@@ -15,13 +15,15 @@ export const login = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: 'User not found' });
+      return;
     }
 
     // Check if the password is valid
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid credentials' });
+      return ;
     }
 
     // Generate a JWT token
@@ -36,5 +38,6 @@ export const login = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error during login:', error);  // Log the error details
     res.status(500).json({ error: 'Something went wrong' });
+    return;
   }
 };

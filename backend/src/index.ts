@@ -1,10 +1,15 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import bodyParser from "body-parser";
 import morgan from "morgan";
 import dotenv from "dotenv";
+
+
 import authRoutes from "./routes/authRoutes";  // to be created
 import bookingRoutes from "./routes/bookingRoutes"; // to be created
+
+console.log("👀 Index.ts starting up...");
 
 // Load env variables
 dotenv.config();
@@ -13,25 +18,22 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: "http://localhost:3000",  // Frontend origin
-  credentials: true
-}));
-app.use(helmet());
-app.use(morgan("dev"));
 app.use(express.json());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({policy : "cross-origin"}));
+app.use(morgan("common"));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended : false}));
+app.use(cors({origin: "http://localhost:3000", credentials: true}));
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes);
 app.use("/api/bookings", bookingRoutes);
 
-// Root
-app.get("/", (_, res) => {
-  res.send("VIP Concierge API is running...");
-});
 
 // Server
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+const port = Number(process.env.PORT) || 8000;
+console.log("🚦 About to call app.listen...");
+app.listen(port, "0.0.0.0", () => {
+  console.log(`🚀 Server running on http://localhost:${port}`);
 });
