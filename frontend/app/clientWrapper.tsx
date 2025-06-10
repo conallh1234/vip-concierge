@@ -13,7 +13,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
   const token = useAppSelector((state) => state.auth.token);
   
   // Public pages that don't require authentication
-  const isPublicPage = pathname === "/" || pathname === "/login";
+  const isPublicPage = pathname === "/" || pathname === "/login" || pathname === "/register";
 
   useEffect(() => {
     // If the user is not authenticated and is not on a public page, redirect to login

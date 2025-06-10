@@ -41,6 +41,24 @@ export const api = createApi({
                 }
             }
         }),
+        register: build.mutation<{ message: string }, {firstName: string; lastName: string; email: string; phone: string; company: string; password: string;}>({
+            query: (newUser) => ({
+                url: "/api/register",
+                method: "POST",
+                body: newUser,
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                const { data } = await queryFulfilled;
+                console.log("✅ Registration success:", data);
+                // Optional: auto-login or set credentials
+                // dispatch(setCredentials(data));
+                } catch (error) {
+                console.error("❌ Registration failed:", error);
+                }
+            },
+            }),
+
         // getDashboardMetrics: build.query<DashboardMetrics, void>({
         //     query: () => "/dashboard", //appends /dashboard to above URL process.env
         //     providesTags: ["DashboardMetrics"],
@@ -69,6 +87,7 @@ console.log('Full URL: ', `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/login`)
 
 
 export const { 
-    useLoginMutation
+    useLoginMutation,
+    useRegisterMutation
 } = api; 
 
