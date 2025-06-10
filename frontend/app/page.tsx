@@ -14,13 +14,32 @@ export const metadata: Metadata = {
 
 const LandingPage = () => {
   return (
-    <main className="snap-y snap-mandatory h-screen overflow-y-scroll scroll-smooth">
-      <HomeNavbar />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <ContactSection />
-    </main>
+    <div className="relative h-screen">
+      {/* Video Background */}
+      <video
+        className="fixed top-0 left-0 w-full h-full object-cover z-[-1]"
+        autoPlay
+        loop
+        muted
+        playsInline
+        src="/background.mp4"
+      />
+
+      {/* Overlay for contrast (optional) */}
+      <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-[-1]" />
+
+      {/* Scrollable Sections */}
+      <main
+        id="landing-scroll-container"
+        className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth"
+      >
+        <HomeNavbar />
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        <ContactSection />
+      </main>
+    </div>
   );
 };
 

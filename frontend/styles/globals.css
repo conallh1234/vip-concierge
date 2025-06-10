@@ -1,23 +1,60 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
 @tailwind utilities;
 
 *,
-*::before
+*::before,
 *::after {
   box-sizing: border-box;
 }
 
-html,
-body,
-#root,
-.app  {
-  height: 100%;
-  width: 100%;
-  @apply text-sm;
-  @apply bg-gray-500;
-  @apply  text-gray-900;
-  scroll-behavior: smooth;
+@layer base {
+  html,
+  body,
+  #root,
+  .app {
+    height: 100%;
+    width: 100%;
+    @apply text-sm md:text-base;
+    @apply bg-gray-50 dark:bg-gray-950;
+    @apply text-gray-900 dark:text-gray-50;
+    scroll-behavior: smooth;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+
+  p {
+    @apply leading-relaxed tracking-wide;
+  }
+
+  .text-luxury {
+    @apply tracking-wider;
+  }
+
+  .text-gold {
+    @apply text-amber-600 dark:text-amber-400;
+  }
+
+  .text-silver {
+    @apply text-gray-500 dark:text-gray-400;
+  }
 }
 
 @media (min-width: 768px) {

@@ -5,9 +5,15 @@ import { Provider } from "react-redux";
 import ClientWrapper from "./clientWrapper";
 
 
+
+
 export const metadata: Metadata = {
   title: "VIPConcierge",
   description: "VIP Concierge Business Management WebApp",
+  icons: [
+    { rel: "icon", url: "/favicon.ico" },
+    { rel: "apple-touch-icon", url: "/apple-touch-icon.png" },
+  ],
 };
 
 export default function RootLayout({
