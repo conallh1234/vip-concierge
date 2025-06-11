@@ -8,7 +8,7 @@ export interface UserRole {
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({ 
-        baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+        baseUrl: process.env.NEXT_PUBLIC_API_URL,
         prepareHeaders: (headers, { getState }) => {
             const token = (getState() as any).auth.token;  // Assuming token is stored in auth slice
       
@@ -58,32 +58,11 @@ export const api = createApi({
                 }
             },
             }),
-
-        // getDashboardMetrics: build.query<DashboardMetrics, void>({
-        //     query: () => "/dashboard", //appends /dashboard to above URL process.env
-        //     providesTags: ["DashboardMetrics"],
-        // }),
-        // // getAdminMetrics: build.query<AdminMetrics: void>({
-            
-        // // }),
-        // getStudents: build.query<Student[], void>({
-        //     query: () => '/students',
-        //     providesTags: ["Students"]
-        // }),
-        // getTrainers: build.query<Trainer[], void>({
-        //     query: () => '/trainers',
-        // }),
-        // getUserRole: build.query<UserRole, void>({
-        //     query: () => '/users/role'
-        // }),
-        // getCourses: build.query<Course[], void>({
-        //     query: () => '/courses'
-        // })
     }),
 });
 
-console.log('Base URL: ', process.env.NEXT_PUBLIC_API_BASE_URL)
-console.log('Full URL: ', `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/login`)
+console.log('Base URL: ', process.env.NEXT_PUBLIC_API_URL)
+console.log('Full URL: ', `${process.env.NEXT_PUBLIC_API_URL}api/login`)
 
 
 export const { 

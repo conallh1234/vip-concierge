@@ -1,7 +1,6 @@
 'use client';
 
 import RegisterForm from '@/components/forms/RegisterForm';
-console.log('RegisterForm:', RegisterForm);
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/app/redux';

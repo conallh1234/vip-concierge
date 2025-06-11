@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, phone, company, password } = req.body;
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -53,19 +53,38 @@ export const register = async (req: Request, res: Response) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await prisma.user.create({
       data: {
-        name,
+        firstName,
+        lastName,
         email,
+        phone,
+        company,
         password: hashedPassword,
+        role: 'USER', // Default role; adapt if you support admin/staff roles
       },
     });
 
-    const { password: _pw, ...userWithoutPassword } = user;
-    res.status(201).json(userWithoutPassword);
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '1h' }
+    );
+
+    res.status(201).json({
+      token,
+      user: {
+        email: user.email,
+        role: user.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phone: user.phone,
+        company: user.company
+      }
+    });
   } catch (error) {
     console.error('Error during registration:', error);
     res.status(500).json({ error: 'Something went wrong' });
-    return;
   }
 };

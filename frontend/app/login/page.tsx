@@ -1,6 +1,6 @@
 'use client';
 
-import LoginForm from '@/components/LoginForm';
+import LoginForm from '@/components/forms/LoginForm';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/app/redux';
@@ -13,10 +13,10 @@ export default function LoginPage() {
 
     useEffect(() => {
       if (token) {
-        if (userRole === 'admin') {
-          router.push('/admin');
-        } else {
+        if (userRole === 'ADMIN' || userRole === 'USER') {
           router.push('/dashboard');
+        } else if(userRole === 'CUSTOMER') {
+          router.push('/client');
         }
       }
     }, [token, userRole, router]);
@@ -47,10 +47,13 @@ export default function LoginPage() {
             <p>Don't have an account?{' '}
               <a 
                 href="/register" 
-                className="text-gold-600 dark:text-gold-400 hover:underline font-medium"
+                className="text-yellow-600 dark:text-yellow-400 hover:underline font-medium"
               >
                 Request Access
               </a>
+            </p>
+            <p>
+               <a href="/" className='text-yellow-600 dark:text-yellow-400 hover:underline font-medium'>Home</a> 
             </p>
           </div>
         </div>

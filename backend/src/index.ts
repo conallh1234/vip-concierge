@@ -6,8 +6,8 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 
 
-import authRoutes from "./routes/authRoutes";  // to be created
-import bookingRoutes from "./routes/bookingRoutes"; // to be created
+import authRoutes from "./routes/authRoutes"; 
+import bookingRoutes from "./routes/bookingRoutes"; 
 
 console.log("👀 Index.ts starting up...");
 
